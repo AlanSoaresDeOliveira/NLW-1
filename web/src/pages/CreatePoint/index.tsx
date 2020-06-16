@@ -9,10 +9,11 @@ import Dropzone from '../../components/Dropzone';
 
 import api from '../../services/api';
 
-import './styles.css';
-
 import logo from '../../assets/logo.svg';
 
+import RegisterCompleted from './RegisterCompleted';
+
+import './styles.css';
 interface Item  {
   id: number;
   title: string;
@@ -39,6 +40,7 @@ const CreatPoint = () => {
     email: '',
     whatsapp: '',
   });
+  const [registerCompleted, setRegisterCompleted] = useState(false);
 
   const [selectedUf, setSelectedUf] = useState('0');
   const [selectedCity, setSelectedCity] = useState('0');
@@ -149,13 +151,17 @@ const CreatPoint = () => {
 
     await api.post('points', data);
 
-    alert('Ponte de Coleta Criado');
+    setRegisterCompleted(true);
 
-    history.push('/')
+
+    setTimeout(() => {
+      history.push('/');
+    }, 2000);
   }
 
   return (
     <div id="page-create-point">
+      {registerCompleted && <RegisterCompleted />}
       <header>
         <img src={logo} alt="Ecoleta"/>
 
